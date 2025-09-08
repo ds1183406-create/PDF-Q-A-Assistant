@@ -24,7 +24,7 @@ const ChatInterface = ({ onFileUpload, uploadedFile }) => {
     formData.append('file', file)
 
     try {
-      const response = await axios.post('http://localhost:8000/upload', formData, {
+      const response = await axios.post('http://localhost:8000/upload?session_id=default', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
       onFileUpload(response.data)

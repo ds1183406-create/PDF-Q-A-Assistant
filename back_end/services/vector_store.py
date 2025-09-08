@@ -21,6 +21,9 @@ class VectorStore:
     
     async def add_documents(self, processed_data: Dict[str, Any]):
         """Add processed PDF data to vector store"""
+        # Clear existing documents first
+        self.clear_documents()
+        
         documents = []
         metadatas = []
         ids = []
@@ -64,8 +67,31 @@ class VectorStore:
                 ids=ids
             )
     
+    def has_documents(self) -> bool:
+        """Check if any documents exist in the collection"""
+        return self.collection.count() > 0
+    
+    def clear_documents(self):
+        """Clear all documents from the collection"""
+        try:
+            # Delete the collection and recreate it
+            self.client.delete_collection(name="pdf_documents")
+            self.collection = self.client.get_or_create_collection(
+                name="pdf_documents",
+                metadata={"hnsw:space": "cosine"}
+            )
+        except Exception:
+            # If collection doesn't exist, just create it
+            self.collection = self.client.get_or_create_collection(
+                name="pdf_documents",
+                metadata={"hnsw:space": "cosine"}
+            )
+    
     async def search(self, query: str, n_results: int = 5) -> List[Dict[str, Any]]:
         """Search for relevant documents"""
+        if not self.has_documents():
+            return []
+            
         results = self.collection.query(
             query_texts=[query],
             n_results=n_results

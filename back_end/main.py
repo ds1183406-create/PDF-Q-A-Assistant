@@ -1,6 +1,7 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from fastapi import Form
 import os
 from typing import List, Optional
 import uvicorn
@@ -38,8 +39,11 @@ class ChatResponse(BaseModel):
 async def root():
     return {"message": "Multi-Modal AI PDF Assistant API"}
 
+class UploadRequest(BaseModel):
+    session_id: Optional[str] = "default"
+
 @app.post("/upload")
-async def upload_pdf(file: UploadFile = File(...)):
+async def upload_pdf(file: UploadFile = File(...), session_id: str = "default"):
     """Upload and process a PDF file"""
     if not file.filename.endswith('.pdf'):
         raise HTTPException(status_code=400, detail="Only PDF files are allowed")
@@ -59,6 +63,9 @@ async def upload_pdf(file: UploadFile = File(...)):
         
         # Store in vector database
         await vector_store.add_documents(result)
+        
+        # Mark this session as having uploaded a PDF
+        chat_service.mark_session_uploaded(session_id)
         
         # Clean up temp file
         os.remove(temp_path)
