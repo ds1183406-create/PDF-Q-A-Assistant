@@ -1,0 +1,175 @@
+📑 Product Requirements Document (PRD)
+
+Project Name: Multi-Modal AI PDF Assistant
+Owner: [Your Name]
+Date: [Today’s Date]
+Version: 1.0
+
+1. Overview
+
+The Multi-Modal AI PDF Assistant is a web application that allows users to upload PDF documents and interact with them using natural language queries.
+The system will leverage LangChain + FastAPI for orchestration, React for the frontend, and Google Gemini 2.5 (Pro + Flash Vision) for reasoning over text, tables, and images.
+
+The assistant will:
+
+Extract text, tables, and images from PDFs.
+
+Store them in a vector database (Chroma/FAISS).
+
+Answer user questions using context-aware retrieval (RAG).
+
+Handle multi-modal content such as tables, diagrams, and charts.
+
+Provide clean, user-friendly responses with references.
+
+2. Goals & Objectives
+
+Build a portfolio-grade AI app that demonstrates advanced skills in AI development, web development, and multi-modal reasoning.
+
+Showcase expertise in:
+
+AI tools (LangChain, Gemini 2.5, Hugging Face APIs)
+
+Backend frameworks (FastAPI, Django, Streamlit)
+
+Frontend frameworks (React, Tailwind, Material UI)
+
+Create a foundation that can later be extended into a SaaS product.
+
+3. Target Users
+
+Freelance clients (businesses, researchers, consultants) who need insights from large PDFs.
+
+Students/Researchers analyzing academic papers.
+
+Business analysts reviewing reports with charts & financial tables.
+
+4. Key Features
+4.1 Must-Have (MVP)
+
+PDF Upload → support documents up to 20MB.
+
+Text Extraction → extract paragraphs & store embeddings.
+
+Table Extraction → detect tables, parse into structured data, generate embeddings.
+
+Image Extraction & Understanding → extract charts/diagrams, analyze with Gemini 2.5 Flash Vision.
+
+Q&A Chat → users ask questions, system retrieves relevant context & responds.
+
+Chat Memory → remembers previous turns for contextual answers.
+
+Frontend Chat UI (React) → supports file upload, chat interface, and references display.
+
+4.2 Nice-to-Have (Advanced)
+
+Table Rendering → display structured tables in chat answers.
+
+Image Previews → show referenced images (charts, diagrams).
+
+Multi-PDF Support → query across multiple uploaded documents.
+
+Export → download extracted tables as CSV or answers as PDF.
+
+Theming → dark/light mode for UI.
+
+5. Technical Requirements
+Backend (FastAPI + LangChain)
+
+FastAPI for API endpoints (/upload, /chat).
+
+LangChain for RAG pipeline.
+
+Gemini 2.5 Pro for text reasoning.
+
+Gemini 2.5 Flash Vision for image/chart understanding.
+
+PyPDF2 / pdfplumber for text & table extraction.
+
+pdf2image for image extraction.
+
+Chroma/FAISS as vector database.
+
+SQLite/Postgres (optional) for persistent chat memory.
+
+Frontend (React)
+
+React 18+ for SPA.
+
+TailwindCSS / Material UI for styling.
+
+Axios for API calls.
+
+Chat UI: user input, AI responses, references, table/image previews.
+
+Deployment
+
+Backend → Hugging Face Spaces / Railway / Render.
+
+Frontend → Vercel / Netlify.
+
+Environment Variables → secure API key storage.
+
+6. User Stories
+
+As a user, I can upload a PDF so that I can interact with its content.
+
+As a user, I can ask questions about the document and receive contextually accurate answers.
+
+As a user, I can ask about a table and get structured data in response.
+
+As a user, I can ask about a chart or diagram and receive a meaningful explanation.
+
+As a user, I can see sources (page numbers or snippets) for every answer.
+
+As a user, I can continue a conversation with memory of prior context.
+
+7. Success Metrics
+
+✅ Able to process PDFs up to 20MB.
+
+✅ Answer accuracy > 85% for text-based questions.
+
+✅ Correctly parse and return tables in at least 90% of cases.
+
+✅ Image/chart explanations consistent with human interpretation.
+
+✅ Average response time < 7 seconds.
+
+8. Risks & Mitigation
+
+Risk: Large PDFs may exceed API limits.
+
+Mitigation: Chunk text into smaller pieces; compress images.
+
+Risk: Table parsing errors on complex layouts.
+
+Mitigation: Fall back to Vision API for OCR-based understanding.
+
+Risk: API cost for Gemini 2.5 Vision.
+
+Mitigation: Cache embeddings and image analysis results.
+
+9. Timeline (Suggested Roadmap)
+
+Week 1: Project setup, FastAPI + React boilerplate, Gemini API integration.
+
+Week 2: Text extraction + RAG pipeline with LangChain.
+
+Week 3: Table extraction & integration.
+
+Week 4: Image extraction + Gemini Flash Vision integration.
+
+Week 5: Frontend chat UI (upload + chat + references).
+
+Week 6: Testing, polish UI, prepare portfolio demo (deploy).
+
+10. Deliverables
+
+✅ GitHub repo with clean code (backend + frontend).
+
+✅ Deployed demo app (Hugging Face Spaces + Vercel).
+
+✅ Documentation (README with setup instructions).
+
+✅ Portfolio case study (screenshots + video demo).
